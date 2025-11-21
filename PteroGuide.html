@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pterodactyl Guide - Thermal Cloud</title>
+  <meta name="description" content="Professional Pterodactyl installation guide.">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  
+  <!-- Config & Styles -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['"Roboto Mono"', 'monospace'],
+          },
+          colors: {
+            // Material 3 Expressive "Deep Purple" Dark Tokens
+            'm3-bg': '#141218',
+            'm3-surface': '#141218',
+            'm3-surface-container-low': '#1D1B20',
+            'm3-surface-container': '#211F26',
+            'm3-surface-container-high': '#2B2930',
+            
+            'm3-primary': '#D0BCFF',
+            'm3-on-primary': '#381E72',
+            'm3-primary-container': '#4F378B',
+            'm3-on-primary-container': '#EADDFF',
+            
+            'm3-secondary': '#CCC2DC',
+            'm3-on-secondary': '#332D41',
+            'm3-secondary-container': '#4A4458',
+            'm3-on-secondary-container': '#E8DEF8',
+
+            'm3-tertiary': '#EFB8C8',
+            'm3-on-tertiary': '#492532',
+            'm3-tertiary-container': '#633B48',
+            'm3-on-tertiary-container': '#FFD8E4',
+            
+            'm3-error': '#F2B8B5',
+            'm3-outline': '#938F99',
+            'm3-outline-variant': '#49454F',
+            
+            'm3-surface-variant': '#49454F',
+            'm3-on-surface': '#E6E1E5',
+            'm3-on-surface-variant': '#CAC4D0',
+          },
+          borderRadius: {
+            'xl': '12px',
+            '2xl': '16px',
+            '3xl': '24px',
+            '4xl': '28px', // M3 Extra Large
+          },
+          boxShadow: {
+            'elevation-1': '0px 1px 2px 0px rgba(0,0,0,0.3), 0px 1px 3px 1px rgba(0,0,0,0.15)',
+            'elevation-2': '0px 1px 2px 0px rgba(0,0,0,0.3), 0px 2px 6px 2px rgba(0,0,0,0.15)',
+            'elevation-3': '0px 4px 8px 3px rgba(0,0,0,0.15), 0px 1px 3px 0px rgba(0,0,0,0.3)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #141218;
+      color: #E6E1E5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    /* Custom Scrollbar for Dark Mode */
+    ::-webkit-scrollbar { width: 12px; }
+    ::-webkit-scrollbar-track { background: #141218; }
+    ::-webkit-scrollbar-thumb {
+      background-color: #49454F;
+      border: 3px solid #141218;
+      border-radius: 20px;
+    }
+    ::-webkit-scrollbar-thumb:hover { background-color: #D0BCFF; }
+
+    ::selection {
+      background: #4F378B;
+      color: #EADDFF;
+    }
+
+    .animate-fade-up { 
+      animation: fadeUp 0.8s cubic-bezier(0.2, 0.0, 0, 1.0) forwards; 
+      opacity: 0; 
+      transform: translateY(30px); 
+    }
+    @keyframes fadeUp { 
+      to { opacity: 1; transform: translateY(0); } 
+    }
+
+    /* Syntax Highlighting Utility Classes */
+    .hl-cmd { color: #D0BCFF; } /* Primary */
+    .hl-arg { color: #EFB8C8; } /* Tertiary */
+    .hl-path { color: #CCC2DC; text-decoration: underline; text-decoration-style: dashed; text-decoration-thickness: 1px; text-underline-offset: 4px; } /* Secondary */
+  </style>
+<script type="importmap">
+{
+  "imports": {
+    "rxjs": "https://aistudiocdn.com/rxjs@^7.8.2?conditions=es2015",
+    "rxjs/operators": "https://aistudiocdn.com/rxjs@^7.8.2/operators?conditions=es2015",
+    "rxjs/ajax": "https://aistudiocdn.com/rxjs@^7.8.2/ajax?conditions=es2015",
+    "rxjs/webSocket": "https://aistudiocdn.com/rxjs@^7.8.2/webSocket?conditions=es2015",
+    "rxjs/testing": "https://aistudiocdn.com/rxjs@^7.8.2/testing?conditions=es2015",
+    "rxjs/fetch": "https://aistudiocdn.com/rxjs@^7.8.2/fetch?conditions=es2015",
+    "@angular/compiler": "https://next.esm.sh/@angular/compiler@^21.0.0?external=rxjs",
+    "@angular/platform-browser": "https://next.esm.sh/@angular/platform-browser@^21.0.0?external=rxjs",
+    "@angular/core": "https://next.esm.sh/@angular/core@^21.0.0?external=rxjs",
+    "@angular/common": "https://next.esm.sh/@angular/common@^21.0.0?external=rxjs"
+  }
+}
+</script>
+</head>
+<body>
+
+  <div class="min-h-screen flex flex-col relative overflow-hidden selection:bg-m3-primary-container selection:text-m3-on-primary-container">
+      
+    <!-- Ambient Background Effects (Aurora) -->
+    <div class="fixed top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-m3-primary-container opacity-[0.15] blur-[120px] pointer-events-none"></div>
+    <div class="fixed bottom-[-10%] right-[-5%] w-[40%] h-[40%] rounded-full bg-m3-tertiary-container opacity-[0.10] blur-[100px] pointer-events-none"></div>
+
+    <!-- Navigation Rail / Header -->
+    <header class="sticky top-0 z-50 bg-m3-bg/80 backdrop-blur-xl border-b border-m3-outline-variant/20 px-6 md:px-12 h-20 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <div class="w-10 h-10 rounded-xl bg-m3-primary-container text-m3-on-primary-container flex items-center justify-center shadow-elevation-1">
+          <span class="material-symbols-rounded text-2xl">terminal</span>
+        </div>
+        <div>
+          <h1 class="text-lg font-semibold text-m3-on-surface leading-none">ThermalCloud</h1>
+          <span class="text-xs font-medium text-m3-primary tracking-wide">DOCUMENTATION</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-1 w-full max-w-4xl mx-auto p-6 md:p-12 relative z-10">
+      
+      <!-- Hero Section -->
+      <div class="mb-20 pt-8 text-center md:text-left animate-fade-up">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-m3-secondary-container text-m3-on-secondary-container text-sm font-bold mb-6 border border-white/5 shadow-elevation-1">
+          <span class="material-symbols-rounded text-lg">verified</span>
+          OFFICIAL GUIDE
+        </div>
+        <h1 class="text-5xl md:text-7xl font-medium text-m3-on-surface mb-6 tracking-tight">
+          Install <span class="text-transparent bg-clip-text bg-gradient-to-r from-m3-primary to-m3-tertiary">Pterodactyl</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-m3-on-surface-variant max-w-2xl leading-relaxed font-light">
+          A complete guide to deploying the Pterodactyl game server panel on ThermalCloud infrastructure.
+        </p>
+      </div>
+
+      <!-- Steps Layout -->
+      <div class="space-y-8">
+        
+        <!-- STEP 1 -->
+        <div class="group relative bg-m3-surface-container-low rounded-4xl p-1 border border-m3-outline-variant/20 transition-all duration-500 hover:bg-m3-surface-container hover:shadow-elevation-2">
+          <div class="relative rounded-[24px] p-6 md:p-8 overflow-hidden">
+            <span class="absolute -right-4 -top-6 text-[120px] font-bold text-m3-surface-variant/10 select-none font-mono pointer-events-none">1</span>
+            <div class="relative z-10">
+              <div class="flex flex-col md:flex-row md:items-center gap-4 mb-6">
+                <span class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-m3-primary-container text-m3-on-primary-container text-lg font-bold shadow-inner">1</span>
+                <h2 class="text-2xl md:text-3xl font-medium text-m3-on-surface">Initial Setup</h2>
+              </div>
+              <p class="text-lg text-m3-on-surface-variant mb-8 leading-relaxed max-w-3xl">
+                Updating system packages & installing curl.
+              </p>
+              
+              <!-- Code Block -->
+              <div class="my-5 rounded-3xl overflow-hidden border border-m3-outline-variant/40 bg-[#1b1b1f] font-mono text-sm shadow-elevation-1 group/code relative">
+                <div class="flex justify-between items-center px-5 py-3 bg-[#232329] border-b border-white/5">
+                  <div class="flex items-center gap-3">
+                     <div class="flex gap-1.5">
+                      <div class="w-3 h-3 rounded-full bg-[#FF5F57]"></div>
+                      <div class="w-3 h-3 rounded-full bg-[#FEBC2E]"></div>
+                      <div class="w-3 h-3 rounded-full bg-[#28C840]"></div>
+                    </div>
+                    <span class="text-xs font-medium text-m3-on-surface-variant/50 tracking-widest uppercase ml-2">SHELL COMMAND</span>
+                  </div>
+                </div>
+                <div class="p-6 overflow-x-auto relative">
+                  <pre class="text-m3-on-surface leading-loose whitespace-pre font-[500]"><code class="code-content"><span class="hl-cmd">sudo</span> <span class="hl-cmd">apt</span> <span class="hl-arg">update</span> && <span class="hl-cmd">sudo</span> <span class="hl-cmd">apt</span> <span class="hl-arg">upgrade</span> <span class="hl-arg">-y</span>
+<span class="hl-cmd">sudo</span> <span class="hl-cmd">apt</span> <span class="hl-arg">install</span> curl <span class="hl-arg">-y</span></code></pre>
+                  <button class="copy-btn absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-m3-secondary-container text-m3-on-secondary-container opacity-0 group-hover/code:opacity-100 transition-all hover:scale-110 shadow-elevation-2 active:scale-95" aria-label="Copy code">
+                    <span class="material-symbols-rounded text-[20px] icon">content_copy</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="group relative bg-m3-surface-container-low rounded-4xl p-1 border border-m3-outline-variant/20 transition-all duration-500 hover:bg-m3-surface-container hover:shadow-elevation-2">
+          <div class="relative rounded-[24px] p-6 md:p-8 overflow-hidden">
+            <span class="absolute -right-4 -top-6 text-[120px] font-bold text-m3-surface-variant/10 select-none font-mono pointer-events-none">2</span>
+            <div class="relative z-10">
+              <div class="flex flex-col md:flex-row md:items-center gap-4 mb-6">
+                <span class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-m3-primary-container text-m3-on-primary-container text-lg font-bold shadow-inner">2</span>
+                <h2 class="text-2xl md:text-3xl font-medium text-m3-on-surface">Pterodactyl Installer</h2>
+              </div>
+              <p class="text-lg text-m3-on-surface-variant mb-8 leading-relaxed max-w-3xl">
+                Execute the automated installation script.
+              </p>
+
+              <!-- Notes -->
+              <div class="flex flex-wrap gap-3 mb-8">
+                <div class="flex items-center gap-2 px-4 py-2 rounded-xl bg-m3-surface-variant/20 border border-m3-outline-variant/20 text-sm font-medium text-m3-secondary">
+                  <div class="w-1.5 h-1.5 rounded-full bg-m3-tertiary"></div>Hostname: testpanel.thermalcloud.site (Your Domain)
+                </div>
+                <div class="flex items-center gap-2 px-4 py-2 rounded-xl bg-m3-surface-variant/20 border border-m3-outline-variant/20 text-sm font-medium text-m3-secondary">
+                  <div class="w-1.5 h-1.5 rounded-full bg-m3-tertiary"></div>Firewall (UFW): No
+                </div>
+                <div class="flex items-center gap-2 px-4 py-2 rounded-xl bg-m3-surface-variant/20 border border-m3-outline-variant/20 text-sm font-medium text-m3-secondary">
+                  <div class="w-1.5 h-1.5 rounded-full bg-m3-tertiary"></div>HTTPS using Let's Encrypt: No
+                </div>
+                <div class="flex items-center gap-2 px-4 py-2 rounded-xl bg-m3-surface-variant/20 border border-m3-outline-variant/20 text-sm font-medium text-m3-secondary">
+                  <div class="w-1.5 h-1.5 rounded-full bg-m3-tertiary"></div>Assume SSL: Yes
+                </div>
+                <div class="flex items-center gap-2 px-4 py-2 rounded-xl bg-m3-surface-variant/20 border border-m3-outline-variant/20 text-sm font-medium text-m3-secondary">
+                  <div class="w-1.5 h-1.5 rounded-full bg-m3-tertiary"></div>Agree HTTPS request: No
+                </div>
+              </div>
+              
+              <!-- Code Block -->
+              <div class="my-5 rounded-3xl overflow-hidden border border-m3-outline-variant/40 bg-[#1b1b1f] font-mono text-sm shadow-elevation-1 group/code relative">
+                <div class="flex justify-between items-center px-5 py-3 bg-[#232329] border-b border-white/5">
+                  <div class="flex items-center gap-3">
+                     <div class="flex gap-1.5">
+                      <div class="w-3 h-3 rounded-full bg-[#FF5F57]"></div>
+                      <div class="w-3 h-3 rounded-full bg-[#FEBC2E]"></div>
+                      <div class="w-3 h-3 rounded-full bg-[#28C840]"></div>
+                    </div>
+                    <span class="text-xs font-medium text-m3-on-surface-variant/50 tracking-widest uppercase ml-2">SHELL COMMAND</span>
+                  </div>
+                </div>
+                <div class="p-6 overflow-x-auto relative">
+                  <pre class="text-m3-on-surface leading-loose whitespace-pre font-[500]"><code class="code-content"><span class="hl-cmd">bash</span> <(<span class="hl-cmd">curl</span> -s https://pterodactyl-installer.se)</code></pre>
+                  <button class="copy-btn absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-m3-secondary-container text-m3-on-secondary-container opacity-0 group-hover/code:opacity-100 transition-all hover:scale-110 shadow-elevation-2 active:scale-95" aria-label="Copy code">
+                    <span class="material-symbols-rounded text-[20px] icon">content_copy</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+   <!-- STEP 3 -->
+<div class="group relative bg-m3-surface-container-low rounded-4xl p-1 border border-m3-outline-variant/20 transition-all duration-500 hover:bg-m3-surface-container hover:shadow-elevation-2">
+  <div class="relative rounded-[24px] p-6 md:p-8 overflow-hidden">
+    <span class="absolute -right-4 -top-6 text-[120px] font-bold text-m3-surface-variant/10 select-none font-mono pointer-events-none">3</span>
+    <div class="relative z-10">
+      
+      <!-- Title -->
+      <div class="flex flex-col md:flex-row md:items-center gap-4 mb-6">
+        <span class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-m3-primary-container text-m3-on-primary-container text-lg font-bold shadow-inner">3</span>
+        <h2 class="text-2xl md:text-3xl font-medium text-m3-on-surface">SSL Certificate</h2>
+      </div>
+
+      <p class="text-lg text-m3-on-surface-variant mb-8 leading-relaxed max-w-3xl">
+        Generate a self-signed SSL certificate and patch your Nginx configuration.
+      </p>
+
+      <div class="mt-10 space-y-8">
+
+        <!-- Single Combined Sub Step -->
+        <div class="bg-m3-surface-container rounded-3xl p-6 border border-m3-outline-variant/20">
+          <h3 class="text-lg font-medium text-m3-primary mb-3 flex items-center gap-2">
+            <span class="material-symbols-rounded">subdirectory_arrow_right</span>
+            Generate SSL & Patch Nginx
+          </h3>
+
+          <div class="my-2 rounded-3xl overflow-hidden border border-m3-outline-variant/40 bg-[#1b1b1f] font-mono text-sm shadow-elevation-1 group/code relative">
+            <div class="p-6 overflow-x-auto relative">
+
+              <pre class="text-m3-on-surface leading-loose whitespace-pre font-[500]">
+<code class="code-content">openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /2.pem -out /1.pem -subj "/CN=localhost"
+sed -i 's|^\s*ssl_certificate\s\+.*|    ssl_certificate /1.pem;|' /etc/nginx/sites-available/pterodactyl.conf
+sed -i 's|^\s*ssl_certificate_key\s\+.*|    ssl_certificate_key /2.pem;|' /etc/nginx/sites-available/pterodactyl.conf
+sed -i 's/\b443\b/8443/g; s/\b80\b/8000/g' /etc/nginx/sites-available/pterodactyl.conf
+systemctl restart nginx</code>
+              </pre>
+
+              <button class="copy-btn absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-m3-secondary-container text-m3-on-secondary-container opacity-0 group-hover/code:opacity-100 transition-all hover:scale-110 shadow-elevation-2 active:scale-95" aria-label="Copy code">
+                <span class="material-symbols-rounded text-[20px] icon">content_copy</span>
+              </button>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+        <!-- STEP 4 -->
+        <div class="group relative bg-m3-surface-container-low rounded-4xl p-1 border border-m3-outline-variant/20 transition-all duration-500 hover:bg-m3-surface-container hover:shadow-elevation-2">
+          <div class="relative rounded-[24px] p-6 md:p-8 overflow-hidden">
+            <span class="absolute -right-4 -top-6 text-[120px] font-bold text-m3-surface-variant/10 select-none font-mono pointer-events-none">4</span>
+            <div class="relative z-10">
+              <div class="flex flex-col md:flex-row md:items-center gap-4 mb-6">
+                <span class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-m3-primary-container text-m3-on-primary-container text-lg font-bold shadow-inner">4</span>
+                <h2 class="text-2xl md:text-3xl font-medium text-m3-on-surface">Cloudflare Tunnel</h2>
+              </div>
+              <p class="text-lg text-m3-on-surface-variant mb-8 leading-relaxed max-w-3xl">
+                Set up secure tunnel for external access.
+              </p>
+
+              <div class="flex flex-wrap gap-3 mb-8">
+                <div class="flex items-center gap-2 px-4 py-2 rounded-xl bg-m3-surface-variant/20 border border-m3-outline-variant/20 text-sm font-medium text-m3-secondary">
+                  <div class="w-1.5 h-1.5 rounded-full bg-m3-tertiary"></div>Service: HTTPS
+                </div>
+                <div class="flex items-center gap-2 px-4 py-2 rounded-xl bg-m3-surface-variant/20 border border-m3-outline-variant/20 text-sm font-medium text-m3-secondary">
+                  <div class="w-1.5 h-1.5 rounded-full bg-m3-tertiary"></div>URL: localhost:8443
+                </div>
+                <div class="flex items-center gap-2 px-4 py-2 rounded-xl bg-m3-surface-variant/20 border border-m3-outline-variant/20 text-sm font-medium text-m3-secondary">
+                  <div class="w-1.5 h-1.5 rounded-full bg-m3-tertiary"></div>No TLS Verify: Enabled
+                </div>
+
+<!-- Code Block -->
+<div class="my-5 rounded-3xl overflow-hidden border border-m3-outline-variant/40 bg-[#1b1b1f] font-mono text-sm shadow-elevation-1 group/code relative">
+  <div class="flex justify-between items-center px-5 py-3 bg-[#232329] border-b border-white/5">
+    <div class="flex items-center gap-3">
+      <div class="flex gap-1.5">
+        <div class="w-3 h-3 rounded-full bg-[#FF5F57]"></div>
+        <div class="w-3 h-3 rounded-full bg-[#FEBC2E]"></div>
+        <div class="w-3 h-3 rounded-full bg-[#28C840]"></div>
+      </div>
+      <span class="text-xs font-medium text-m3-on-surface-variant/50 tracking-widest uppercase ml-2">TUNNEL GUIDE</span>
+    </div>
+  </div>
+
+  <div class="p-6 overflow-x-auto relative">
+    <pre class="text-m3-on-surface leading-loose whitespace-pre font-[500]"><code class="code-content">1. Network → Tunnels → Create Tunnel
+2. Select cloudflared, name it whatever you want
+3. Choose Debian → install cloudflared
+4. Install the service for auto-start
+5. Use the same subdomain as earlier
+6. Service Type: https
+7. Service URL: localhost:8443
+8. Enable "No TLS Verify" in Additional Settings
+
+NOTE: YOU MUST HAVE A DOMAIN ON CLOUDFLARE TO EXPOSE YOUR PTERODACTYL AND WINGS.</code></pre>
+
+    <button class="copy-btn absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-m3-secondary-container text-m3-on-secondary-container opacity-0 group-hover/code:opacity-100 transition-all hover:scale-110 shadow-elevation-2 active:scale-95" aria-label="Copy code">
+      <span class="material-symbols-rounded text-[20px] icon">content_copy</span>
+    </button>
+  </div>
+</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 5 -->
+        <div class="group relative bg-m3-surface-container-low rounded-4xl p-1 border border-m3-outline-variant/20 transition-all duration-500 hover:bg-m3-surface-container hover:shadow-elevation-2">
+          <div class="relative rounded-[24px] p-6 md:p-8 overflow-hidden">
+            <span class="absolute -right-4 -top-6 text-[120px] font-bold text-m3-surface-variant/10 select-none font-mono pointer-events-none">5</span>
+            <div class="relative z-10">
+              <div class="flex flex-col md:flex-row md:items-center gap-4 mb-6">
+                <span class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-m3-primary-container text-m3-on-primary-container text-lg font-bold shadow-inner">5</span>
+                <h2 class="text-2xl md:text-3xl font-medium text-m3-on-surface">Wings Installer</h2>
+              </div>
+              <p class="text-lg text-m3-on-surface-variant mb-8 leading-relaxed max-w-3xl">
+                Execute the automated wings installation script.
+              </p>
+
+              <!-- Notes -->
+              <div class="flex flex-wrap gap-3 mb-8">
+                <div class="flex items-center gap-2 px-4 py-2 rounded-xl bg-m3-surface-variant/20 border border-m3-outline-variant/20 text-sm font-medium text-m3-secondary">
+                  <div class="w-1.5 h-1.5 rounded-full bg-m3-tertiary"></div>Unsupported type of virtualization: Yes (Continue anyway)
+                </div>
+                <div class="flex items-center gap-2 px-4 py-2 rounded-xl bg-m3-surface-variant/20 border border-m3-outline-variant/20 text-sm font-medium text-m3-secondary">
+                  <div class="w-1.5 h-1.5 rounded-full bg-m3-tertiary"></div>Firewall (UFW): No
+                </div>
+                <div class="flex items-center gap-2 px-4 py-2 rounded-xl bg-m3-surface-variant/20 border border-m3-outline-variant/20 text-sm font-medium text-m3-secondary">
+                  <div class="w-1.5 h-1.5 rounded-full bg-m3-tertiary"></div>Hostname:  node1.thermalcloud.site (Your Domain)
+                </div>
+            </div>
+              
+              <!-- Code Block -->
+              <div class="my-5 rounded-3xl overflow-hidden border border-m3-outline-variant/40 bg-[#1b1b1f] font-mono text-sm shadow-elevation-1 group/code relative">
+                <div class="flex justify-between items-center px-5 py-3 bg-[#232329] border-b border-white/5">
+                  <div class="flex items-center gap-3">
+                     <div class="flex gap-1.5">
+                      <div class="w-3 h-3 rounded-full bg-[#FF5F57]"></div>
+                      <div class="w-3 h-3 rounded-full bg-[#FEBC2E]"></div>
+                      <div class="w-3 h-3 rounded-full bg-[#28C840]"></div>
+                    </div>
+                    <span class="text-xs font-medium text-m3-on-surface-variant/50 tracking-widest uppercase ml-2">SHELL COMMAND</span>
+                  </div>
+                </div>
+                <div class="p-6 overflow-x-auto relative">
+                  <pre class="text-m3-on-surface leading-loose whitespace-pre font-[500]"><code class="code-content"><span class="hl-cmd">bash</span> <(<span class="hl-cmd">curl</span> -s https://pterodactyl-installer.se)</code></pre>
+                  <button class="copy-btn absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-m3-secondary-container text-m3-on-secondary-container opacity-0 group-hover/code:opacity-100 transition-all hover:scale-110 shadow-elevation-2 active:scale-95" aria-label="Copy code">
+                    <span class="material-symbols-rounded text-[20px] icon">content_copy</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+<!-- STEP 4 -->
+        <div class="group relative bg-m3-surface-container-low rounded-4xl p-1 border border-m3-outline-variant/20 transition-all duration-500 hover:bg-m3-surface-container hover:shadow-elevation-2">
+          <div class="relative rounded-[24px] p-6 md:p-8 overflow-hidden">
+            <span class="absolute -right-4 -top-6 text-[120px] font-bold text-m3-surface-variant/10 select-none font-mono pointer-events-none">6</span>
+            <div class="relative z-10">
+              <div class="flex flex-col md:flex-row md:items-center gap-4 mb-6">
+                <span class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-m3-primary-container text-m3-on-primary-container text-lg font-bold shadow-inner">6</span>
+                <h2 class="text-2xl md:text-3xl font-medium text-m3-on-surface">Cloudflare Tunnel</h2>
+              </div>
+              <p class="text-lg text-m3-on-surface-variant mb-8 leading-relaxed max-w-3xl">
+                Set up secure tunnel for node access.
+              </p>
+
+              <div class="flex flex-wrap gap-3 mb-8">
+                <div class="flex items-center gap-2 px-4 py-2 rounded-xl bg-m3-surface-variant/20 border border-m3-outline-variant/20 text-sm font-medium text-m3-secondary">
+                  <div class="w-1.5 h-1.5 rounded-full bg-m3-tertiary"></div>Service: HTTPS
+                </div>
+                <div class="flex items-center gap-2 px-4 py-2 rounded-xl bg-m3-surface-variant/20 border border-m3-outline-variant/20 text-sm font-medium text-m3-secondary">
+                  <div class="w-1.5 h-1.5 rounded-full bg-m3-tertiary"></div>URL: localhost:443
+                </div>
+                <div class="flex items-center gap-2 px-4 py-2 rounded-xl bg-m3-surface-variant/20 border border-m3-outline-variant/20 text-sm font-medium text-m3-secondary">
+                  <div class="w-1.5 h-1.5 rounded-full bg-m3-tertiary"></div>No TLS Verify: Enabled
+                </div>
+
+<!-- Code Block -->
+<div class="my-5 rounded-3xl overflow-hidden border border-m3-outline-variant/40 bg-[#1b1b1f] font-mono text-sm shadow-elevation-1 group/code relative">
+  <div class="flex justify-between items-center px-5 py-3 bg-[#232329] border-b border-white/5">
+    <div class="flex items-center gap-3">
+      <div class="flex gap-1.5">
+        <div class="w-3 h-3 rounded-full bg-[#FF5F57]"></div>
+        <div class="w-3 h-3 rounded-full bg-[#FEBC2E]"></div>
+        <div class="w-3 h-3 rounded-full bg-[#28C840]"></div>
+      </div>
+      <span class="text-xs font-medium text-m3-on-surface-variant/50 tracking-widest uppercase ml-2">TUNNEL GUIDE</span>
+    </div>
+  </div>
+
+  <div class="p-6 overflow-x-auto relative">
+    <pre class="text-m3-on-surface leading-loose whitespace-pre font-[500]"><code class="code-content">1. Go to Cloudflare → Zero Trust → Access → Tunnels
+2. Select your existing tunnel
+3. Click Edit, then open Public Hostnames
+4. Click Add New Hostname
+5. Enter your node subdomain
+6. Set Service Type to https
+7. Set Service URL to localhost:443
+8. Open Additional Settings → TLS
+9. Enable No TLS Verify
+
+NOTE: YOU MUST HAVE A DOMAIN ON CLOUDFLARE TO EXPOSE YOUR PTERODACTYL AND WINGS.</code></pre>
+
+    <button class="copy-btn absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-m3-secondary-container text-m3-on-secondary-container opacity-0 group-hover/code:opacity-100 transition-all hover:scale-110 shadow-elevation-2 active:scale-95" aria-label="Copy code">
+      <span class="material-symbols-rounded text-[20px] icon">content_copy</span>
+    </button>
+  </div>
+</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+<!-- STEP 7 -->
+<div class="group relative bg-m3-surface-container-low rounded-4xl p-1 border border-m3-outline-variant/20 transition-all duration-500 hover:bg-m3-surface-container hover:shadow-elevation-2">
+  <div class="relative rounded-[24px] p-6 md:p-8 overflow-hidden">
+    <span class="absolute -right-4 -top-6 text-[120px] font-bold text-m3-surface-variant/10 select-none font-mono pointer-events-none">7</span>
+
+    <div class="relative z-10">
+      <div class="flex flex-col md:flex-row md:items-center gap-4 mb-6">
+        <span class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-m3-primary-container text-m3-on-primary-container text-lg font-bold shadow-inner">7</span>
+        <h2 class="text-2xl md:text-3xl font-medium text-m3-on-surface">Pterodactyl Wings Setup</h2>
+      </div>
+
+      <p class="text-lg text-m3-on-surface-variant mb-8 leading-relaxed max-w-3xl">
+        Set up locations and nodes in the admin panel.
+      </p>
+
+      <!-- Code Block -->
+      <div class="my-5 rounded-3xl overflow-hidden border border-m3-outline-variant/40 bg-[#1b1b1f] font-mono text-sm shadow-elevation-1 group/code relative">
+        <div class="flex justify-between items-center px-5 py-3 bg-[#232329] border-b border-white/5">
+          <div class="flex items-center gap-3">
+            <div class="flex gap-1.5">
+              <div class="w-3 h-3 rounded-full bg-[#FF5F57]"></div>
+              <div class="w-3 h-3 rounded-full bg-[#FEBC2E]"></div>
+              <div class="w-3 h-3 rounded-full bg-[#28C840]"></div>
+            </div>
+            <span class="text-xs font-medium text-m3-on-surface-variant/50 tracking-widest uppercase ml-2">WINGS GUIDE</span>
+          </div>
+        </div>
+
+        <div class="p-6 overflow-x-auto relative">
+<pre class="text-m3-on-surface leading-loose whitespace-pre font-[500]"><code class="code-content">1. Login to panel
+2. Admin → Locations → Create one (example: US)
+3. Admin → Nodes → Add node
+4. Daemon Port: 443
+5. SSL: Not Behind Proxy
+6. Use the node subdomain as the FQDN (example: node1.thermalcloud.site)
+7. Copy config token and run the command as usual
+
+NOTE: YOU MUST HAVE A DOMAIN ON CLOUDFLARE TO EXPOSE YOUR PTERODACTYL AND WINGS.</code></pre>
+
+          <button class="copy-btn absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-m3-secondary-container text-m3-on-secondary-container opacity-0 group-hover/code:opacity-100 transition-all hover:scale-110 shadow-elevation-2 active:scale-95" aria-label="Copy code">
+            <span class="material-symbols-rounded text-[20px] icon">content_copy</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Single Combined Sub Step 1 -->
+      <div class="bg-m3-surface-container rounded-3xl p-6 border border-m3-outline-variant/20">
+        <h3 class="text-lg font-medium text-m3-primary mb-3 flex items-center gap-2">
+          <span class="material-symbols-rounded">subdirectory_arrow_right</span>
+          If panel and node are on different hosts (VPS(s))
+        </h3>
+
+        <div class="my-2 rounded-3xl overflow-hidden border border-m3-outline-variant/40 bg-[#1b1b1f] font-mono text-sm shadow-elevation-1 group/code relative">
+          <div class="p-6 overflow-x-auto relative">
+<pre class="text-m3-on-surface leading-loose whitespace-pre font-[500]"><code class="code-content">openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /2.pem -out /1.pem -subj "/CN=localhost"
+sed -i 's|^\(\s*cert:\s*\).*|\1/1.pem|' /etc/pterodactyl/config.yml
+sed -i 's|^\(\s*key:\s*\).*|\1/2.pem|' /etc/pterodactyl/config.yml
+systemctl restart wings</code></pre>
+
+            <button class="copy-btn absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-m3-secondary-container text-m3-on-secondary-container opacity-0 group-hover/code:opacity-100 transition-all hover:scale-110 shadow-elevation-2 active:scale-95">
+              <span class="material-symbols-rounded text-[20px] icon">content_copy</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Single Combined Sub Step 2 -->
+      <div class="bg-m3-surface-container rounded-3xl p-6 border border-m3-outline-variant/20 mt-6">
+        <h3 class="text-lg font-medium text-m3-primary mb-3 flex items-center gap-2">
+          <span class="material-symbols-rounded">subdirectory_arrow_right</span>
+          If panel and node are on same hosts (VPS)
+        </h3>
+
+        <div class="my-2 rounded-3xl overflow-hidden border border-m3-outline-variant/40 bg-[#1b1b1f] font-mono text-sm shadow-elevation-1 group/code relative">
+          <div class="p-6 overflow-x-auto relative">
+<pre class="text-m3-on-surface leading-loose whitespace-pre font-[500]"><code class="code-content">sed -i 's|^\(\s*cert:\s*\).*|\1/1.pem|' /etc/pterodactyl/config.yml
+sed -i 's|^\(\s*key:\s*\).*|\1/2.pem|' /etc/pterodactyl/config.yml
+systemctl restart wings</code></pre>
+
+            <button class="copy-btn absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-m3-secondary-container text-m3-on-secondary-container opacity-0 group-hover/code:opacity-100 transition-all hover:scale-110 shadow-elevation-2 active:scale-95">
+              <span class="material-symbols-rounded text-[20px] icon">content_copy</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div> <!-- closes relative z-10 -->
+  </div> <!-- closes inner rounded container -->
+</div> <!-- closes STEP 7 container -->
+
+
+
+
+      <!-- Success State -->
+      <div class="mt-24 mb-12 rounded-4xl bg-gradient-to-br from-m3-primary-container to-m3-tertiary-container p-10 text-center relative overflow-hidden shadow-elevation-3">
+         <!-- Decorative Circles -->
+         <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-20 -mt-20"></div>
+         <div class="absolute bottom-0 left-0 w-64 h-64 bg-black/10 rounded-full blur-3xl -ml-20 -mb-20"></div>
+         
+         <div class="relative z-10">
+           <div class="w-16 h-16 mx-auto bg-m3-on-primary-container rounded-full flex items-center justify-center mb-6 text-m3-primary-container shadow-lg">
+             <span class="material-symbols-rounded text-3xl">rocket_launch</span>
+           </div>
+           <h2 class="text-3xl md:text-4xl font-medium text-m3-on-primary-container mb-4">Deployment Complete</h2>
+           <p class="text-m3-on-primary-container/80 text-lg max-w-xl mx-auto">
+Your Pterodactyl panel is now securely running behind Cloudflare. You can access it using your configured domain. If you see a green heart, congratulations — you’ve successfully set up Wings!
+           </p>
+         </div>
+      </div>
+
+    </main>
+    
+    <footer class="py-12 text-center border-t border-m3-outline-variant/10 bg-m3-bg/50">
+      <div class="flex items-center justify-center gap-2 mb-4 text-m3-on-surface-variant/60">
+         <span class="material-symbols-rounded text-xl">code</span>
+         <span class="text-sm font-medium">Credits: Losty | ThermalCloud</span>
+      </div>
+      <p class="text-xs text-m3-outline">&copy; <span id="year">2024</span> All rights reserved.</p>
+    </footer>
+  </div>
+
+  <!-- Interactivity Script -->
+  <script>
+    // Set Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Copy Functionality
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        // Find the code element in the same container
+        const container = btn.closest('.group\\/code');
+        const codeBlock = container.querySelector('.code-content');
+        const icon = btn.querySelector('.icon');
+        
+        // Extract text content (removes HTML tags for clipboard)
+        const textToCopy = codeBlock.textContent;
+
+        try {
+          await navigator.clipboard.writeText(textToCopy);
+          
+          // Feedback UI
+          btn.classList.add('!bg-m3-primary', '!text-m3-on-primary', 'opacity-100');
+          icon.textContent = 'check';
+          
+          setTimeout(() => {
+            btn.classList.remove('!bg-m3-primary', '!text-m3-on-primary', 'opacity-100');
+            icon.textContent = 'content_copy';
+          }, 2000);
+          
+        } catch (err) {
+          console.error('Failed to copy:', err);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
