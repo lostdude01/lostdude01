@@ -4,14 +4,14 @@ My name is Losty. I'm the current owner of [ThermalCloud](https://thermalcloud.s
 
 ---
 
-## My Statistics 
+### My Statistics 
 
 ##### Most used languages
 [![Losty](https://github-readme-stats.vercel.app/api/top-langs/?username=lostdude01&layout=compact&hide_border=true&theme=dark)](https://github.com/lostdude01/github-readme-stats)          
 
 ---
 
-## My Skills
+### My Skills
 <div align="left">
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" height="40" alt="javascript" />
   <img width="12" />
@@ -27,8 +27,5 @@ My name is Losty. I'm the current owner of [ThermalCloud](https://thermalcloud.s
   <img width="12" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" height="40" alt="flutter" />
 </div>
-
----
-
 
 ---
