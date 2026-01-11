@@ -7,7 +7,7 @@ My name is enp0stly. I'm the current owner of ThermalCloud, a cloud computing co
 ### My Statistics 
 
 ##### Most used languages
-[![Losty](https://github-readme-stats.vercel.app/api/top-langs/?username=enp0stly&layout=compact&hide_border=true&theme=dark)](https://github.com/enp0stly/github-readme-stats)          
+[![enp0stly](https://github-readme-stats.vercel.app/api/top-langs/?username=enp0stly&layout=compact&hide_border=true&theme=dark)](https://github.com/enp0stly/github-readme-stats)          
 
 ---
 
