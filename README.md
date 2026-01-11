@@ -1,13 +1,13 @@
 ## Hi there 👋
 
-My name is Losty. I'm the current owner of [ThermalCloud](https://thermalcloud.site), a cloud computing company.
+My name is enp0stly. I'm the current owner of ThermalCloud, a cloud computing company.
 
 ---
 
 ### My Statistics 
 
 ##### Most used languages
-[![Losty](https://github-readme-stats.vercel.app/api/top-langs/?username=lostdude01&layout=compact&hide_border=true&theme=dark)](https://github.com/lostdude01/github-readme-stats)          
+[![Losty](https://github-readme-stats.vercel.app/api/top-langs/?username=enp0stly&layout=compact&hide_border=true&theme=dark)](https://github.com/enp0stly/github-readme-stats)          
 
 ---
 
