@@ -4,14 +4,7 @@ My name is enp0stly. I'm the current owner of ThermalCloud, a cloud computing co
 
 ---
 
-### My Statistics 
-
-##### Most used languages
-[![enp0stly](https://github-readme-stats.vercel.app/api/top-langs/?username=enp0stly&layout=compact&hide_border=true&theme=dark)](https://github.com/enp0stly/github-readme-stats)          
-
----
-
-### My Skills
+### Languages I know & am learning
 <div align="left">
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" height="40" alt="javascript" />
   <img width="12" />
@@ -21,11 +14,10 @@ My name is enp0stly. I'm the current owner of ThermalCloud, a cloud computing co
   <img width="12" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" height="40" alt="nodejs" />
   <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" height="40" alt="docker" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" height="40" alt="python" />
   <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" height="40" alt="figma" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/discordjs/discordjs-original.svg" height="40" alt="python" />
   <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" height="40" alt="flutter" />
 </div>
 
 ---
