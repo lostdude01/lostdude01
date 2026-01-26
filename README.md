@@ -1,23 +1,21 @@
-## Hi there 👋
+<p align="center">
+  <a href="https://git.io/typing-svg">
+    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=18&pause=1000&color=ADD8E6&center=true&width=600&lines=Hi!+I+am+enp0stly.;I+am+a+passionate+developer." alt="Typing SVG" />
+  </a>
+</p>
 
-My name is enp0stly. I'm the current owner of ThermalCloud, a cloud computing company.
+## About Me
 
----
+I'm enp0stly, a cybersecurity focused developer specializing in Python and JavaScript. I build automation scripts, and API wrappers with an emphasis on reliability, efficiency, and real-world defensive use cases.
+<p align="center">
+  <img src="https://go-skill-icons.vercel.app/api/icons?i=python,js,react,debian,proxmox,typescript,discord" alt="Tech Stack" />
+</p>
 
-### Languages I know & am learning
-<div align="left">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" height="40" alt="javascript" />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" height="40" alt="typescript" />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" height="40" alt="react" />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" height="40" alt="nodejs" />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" height="40" alt="python" />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/discordjs/discordjs-original.svg" height="40" alt="python" />
-  <img width="12" />
-</div>
 
----
+## My GitHub Activity
+
+<p align="center">
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=enp0stly&theme=nord&hide_border=true&area=true" alt="Contribution Graph" />
+</p>
+
+
