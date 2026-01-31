@@ -1,6 +1,14 @@
 <p align="center">
-  <a href="https://git.io/typing-svg">
-    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=18&pause=1000&color=ADD8E6&center=true&width=600&lines=Hi!+I+am+enp0stly.;I+am+a+passionate+developer." alt="Typing SVG" />
+  <img
+    src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=18&pause=1000&color=ADD8E6&center=true&width=420&lines=Hi!+I+am+enp0stly.;I+am+a+passionate+developer."
+    alt="Typing SVG"
+  />
+  <br/><br/>
+  <a href="https://discord.com/users/1415036138229600355">
+    <img
+      src="https://lanyard.cnrad.dev/api/1415036138229600355?hideDiscrim=true&showDisplayName=true&theme=dark&borderRadius=18px"
+      alt="Discord Presence"
+    />
   </a>
 </p>
 
@@ -17,5 +25,4 @@ I'm enp0stly, a cybersecurity focused developer specializing in Python and JavaS
 <p align="center">
   <img src="https://github-readme-activity-graph.vercel.app/graph?username=enp0stly&theme=nord&hide_border=true&area=true" alt="Contribution Graph" />
 </p>
-
 
