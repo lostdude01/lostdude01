@@ -16,7 +16,7 @@
 
 I'm enp0stly, a cybersecurity focused developer specializing in Python and JavaScript. I build automation scripts, and API wrappers with an emphasis on reliability, efficiency, and real-world defensive use cases.
 <p align="center">
-  <img src="https://go-skill-icons.vercel.app/api/icons?i=python,js,react,debian,proxmox,typescript,discord" alt="Tech Stack" />
+  <img src="https://go-skill-icons.vercel.app/api/icons?i=python,js,react,angular,proxmox,typescript,discord" alt="Tech Stack" />
 </p>
 
 
