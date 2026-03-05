@@ -1,12 +1,12 @@
 <p align="center">
   <img
-    src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=18&pause=1000&color=ADD8E6&center=true&width=420&lines=Hi!+I+am+enp0stly.;I+am+a+passionate+developer."
+    src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=18&pause=1000&color=ADD8E6&center=true&width=420&lines=Hi!+I+am+Kitty+(exi3a);I+am+a+passionate+developer."
     alt="Typing SVG"
   />
   <br/><br/>
-  <a href="https://discord.com/users/1415036138229600355">
+  <a href="https://discord.com/users/1457254964836569232">
     <img
-      src="https://lanyard.cnrad.dev/api/1415036138229600355?hideDiscrim=true&showDisplayName=true&theme=dark&borderRadius=18px"
+      src="https://lanyard.cnrad.dev/api/1457254964836569232?hideDiscrim=true&showDisplayName=true&theme=dark&borderRadius=18px"
       alt="Discord Presence"
     />
   </a>
