@@ -23,6 +23,6 @@ I'm Kitty, a cybersecurity focused developer specializing in Python and JavaScri
 ## My GitHub Activity
 
 <p align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=enp0stly&theme=nord&hide_border=true&area=true" alt="Contribution Graph" />
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=exi3a&theme=nord&hide_border=true&area=true" alt="Contribution Graph" />
 </p>
 
