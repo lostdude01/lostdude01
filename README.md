@@ -24,5 +24,5 @@ I'm Kitty also known as (exi3a/cxi1a), a cybersecurity focused developer special
 ## My GitHub Activity
 
 <p align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=exi3a&theme=nord&hide_border=true&area=true" alt="Contribution Graph" />
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=cxi3a&theme=nord&hide_border=true&area=true" alt="Contribution Graph" />
 </p>
